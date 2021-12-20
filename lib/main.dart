@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:todo_app/taskpage.dart';
 
 void main() {
   runApp(Todo());
@@ -164,7 +166,11 @@ class _TodoState extends State<Todo> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => TaskPage()),
+            );
+          },
           child: Icon(Icons.add),
         ),
       ),
