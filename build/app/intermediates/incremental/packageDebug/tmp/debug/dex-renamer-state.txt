@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 #Mon Jan 03 15:02:02 IST 2022
 base.0=D\:\\Flutter 2\\todo_list\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+=======
+#Fri Dec 24 19:56:30 IST 2021
+base.0=C\:\\Users\\LENOVO\\OneDrive\\Desktop\\development\\flutter\\todo_list-main\\todo_list-1\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+>>>>>>> a906d1f210c1dd03b3b8ba040d6158de85d1c185
 renamed.0=classes.dex
 path.0=classes.dex
