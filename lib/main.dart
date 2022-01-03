@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:todo_app/Todo.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MyApp()); 
 }
 
 class MyApp extends StatelessWidget {
@@ -11,6 +10,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(title: 'Todo App', home: Todo());
+    return MaterialApp(title: 'Todo App', 
+    home: Scaffold(   
+      appBar: AppBar(
+        title: Text("Hello"),
+      ),
+      body: Center(
+        child: Text("Hello Eotld"),
+      ),
+    ),
+    );
   }
 }

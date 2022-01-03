@@ -57,8 +57,7 @@ class _TodoState extends State<Todo> {
         title: const Text('To-do List'),
       ),
       body: Container(
-        margin: const EdgeInsets.fromLTRB(20.0,20.0,20.0,20.0
-        ),
+        margin: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
         child: Column(
           children: <Widget>[
             Row(
@@ -117,7 +116,9 @@ class _TodoState extends State<Todo> {
             MaterialPageRoute(
               builder: (context) => const TaskPage(),
             ),
-          );
+          ).then((value) {
+            print(value);
+          });
         },
         child: const Icon(Icons.add),
       ),
