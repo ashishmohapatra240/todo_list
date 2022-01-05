@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/Todo.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() {
-  runApp(const MyApp()); 
+  Hive.init();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -10,15 +13,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Todo App', 
-    home: Scaffold(   
-      appBar: AppBar(
-        title: Text("Hello"),
-      ),
-      body: Center(
-        child: Text("Hello Eotld"),
-      ),
-    ),
-    );
+    return const MaterialApp(title: 'Todo App', home: Todo());
   }
 }
