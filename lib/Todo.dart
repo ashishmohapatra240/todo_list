@@ -77,35 +77,38 @@ class _TodoState extends State<Todo> {
                 ),
               ],
             ),
-            ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    leading: const Icon(Icons.list),
-                    title: TextField(
-                      controller: _task,
-                      decoration:
-                          const InputDecoration(hintText: 'Enter task here'),
-                    ),
-                    trailing: ElevatedButton(
-                      onPressed: () {
-                        if (initial >= 1) {
-                          setState(() {
-                            initial = 0;
-                            value = value + 1;
-                          });
-                        } else {
-                          setState(() {
-                            initial = initial + 0.2;
-                          });
-                        }
-                      },
-                      child: const Text('Done'),
-                    ),
-                  );
-                }),
+            // ListView.builder(
+            //     scrollDirection: Axis.vertical,
+            //     shrinkWrap: true,
+            //     itemCount: 5,
+            //     itemBuilder: (BuildContext context, int index) {
+            //       return ListTile(
+            //         leading: const Icon(Icons.list),
+            //         title: TextField(
+            //           controller: _task,
+            //           decoration:
+            //               const InputDecoration(hintText: 'Enter task here'),
+            //         ),
+            //         trailing: ElevatedButton(
+            //           onPressed: () {
+            //             if (initial >= 1) {
+            //               setState(() {
+            //                 initial = 0;
+            //                 value = value + 1;
+            //               });
+            //             } else {
+            //               setState(() {
+            //                 initial = initial + 0.2;
+            //               });
+            //             }
+            //           },
+            //           child: const Text('Done'),
+            //         ),
+            //       );
+            //     })
+            Expanded(
+              child: _buildListView(),
+            ),
           ],
         ),
       ),
@@ -116,12 +119,20 @@ class _TodoState extends State<Todo> {
             MaterialPageRoute(
               builder: (context) => const TaskPage(),
             ),
-          ).then((value) {
-            print(value);
-          });
+          );
         },
         child: const Icon(Icons.add),
       ),
     );
   }
+}
+
+ListView _buildListView() {
+  return ListView(
+    children: <Widget>[
+      ListTile(
+        title: Text('Task'),
+      ),
+    ],
+  );
 }

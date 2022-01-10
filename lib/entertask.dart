@@ -1,32 +1,28 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-class Entertask extends StatefulWidget {
-  const Entertask({Key? key}) : super(key: key);
+class entertask extends StatefulWidget {
+  const entertask({Key? key}) : super(key: key);
 
   @override
-  State<Entertask> createState() => _EntertaskState();
+  _entertaskState createState() => _entertaskState();
 }
 
-class _EntertaskState extends State<Entertask> {
-  bool isChecked = false;
+class _entertaskState extends State<entertask> {
+  final _formKey = GlobalKey<FormState>();
+  String _task='';
+  entertask newTask = new entertask();
+
+
+void addTask(task){
+
+}
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Container(
-        child: Row(
-          children: [
-            Checkbox(
-              value: isChecked,
-              onChanged: (bool? value) {
-                setState(() {
-                  isChecked = value!;
-                });
-              },
-            ),
-            const Text("Todo"),
-          ],
-        ),
-      ),
-    );
+    return Form(
+        key: _formKey,
+        child: Column(
+          children: <Widget>[],
+        ));
   }
 }

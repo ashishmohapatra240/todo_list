@@ -11,9 +11,10 @@ class TaskPage extends StatefulWidget {
 class _TaskPageState extends State<TaskPage> {
   String? task;
 
-  void addValue(String value){
-    task=value;
+  void addValue(String value) {
+    task = value;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class _TaskPageState extends State<TaskPage> {
                     hintText: "Enter Task",
                     // border: InputBorder.none,
                   ),
-                  onSubmitted: (String value){
+                  onSubmitted: (String value) {
                     addValue(value);
                   },
                 ),
@@ -40,13 +41,14 @@ class _TaskPageState extends State<TaskPage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop({task});
+                    // Navigator.of(context).pop({task});
+                    // newTask._formKey.currentState.save();
+                    // final newTask = Task();
+                    // newTask.addTask();
                   },
                   child: Text('Add Task'),
                 ),
-                Entertask(),
-                Entertask(),
-                Entertask(),
+                entertask(),
               ],
             ),
           ),
