@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
 
 class entertask extends StatefulWidget {
-  const entertask({Key? key}) : super(key: key);
+  const entertask(void Function(dynamic task) addTask, {Key? key}) : super(key: key);
 
   @override
   _entertaskState createState() => _entertaskState();
@@ -9,13 +10,7 @@ class entertask extends StatefulWidget {
 
 class _entertaskState extends State<entertask> {
   final _formKey = GlobalKey<FormState>();
-  String _task='';
-  entertask newTask = new entertask();
-
-
-void addTask(task){
-
-}
+  String task='';
 
   @override
   Widget build(BuildContext context) {

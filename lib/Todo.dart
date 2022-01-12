@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:todo_app/taskpage.dart';
+
+import 'models/task.dart';
 
 class Todo extends StatefulWidget {
   const Todo({Key? key}) : super(key: key);
@@ -128,11 +131,14 @@ class _TodoState extends State<Todo> {
 }
 
 ListView _buildListView() {
-  return ListView(
-    children: <Widget>[
-      ListTile(
-        title: Text('Task'),
-      ),
-    ],
+  final taskBox = Hive.box('task');
+  return ListView.builder(
+    itemCount: taskBox.length,
+    itemBuilder: (BuildContext context, int index) {
+      final task =taskBox.get(index) as Task;
+      return ListTile(
+        title: Text(task.task),
+      );
+    },
   );
 }

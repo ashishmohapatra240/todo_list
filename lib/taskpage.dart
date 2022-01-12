@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:todo_app/entertask.dart';
+
+import 'models/task.dart';
 
 class TaskPage extends StatefulWidget {
   const TaskPage({Key? key}) : super(key: key);
@@ -9,6 +12,14 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  Future<void> addTask(task) async {
+    await Hive.openBox("task");
+    final taskBox = Hive.box('task');
+    taskBox.add(task);
+  }
+
   String? task;
 
   void addValue(String value) {
@@ -42,13 +53,13 @@ class _TaskPageState extends State<TaskPage> {
                 ElevatedButton(
                   onPressed: () {
                     // Navigator.of(context).pop({task});
-                    // newTask._formKey.currentState.save();
-                    // final newTask = Task();
-                    // newTask.addTask();
+                    _formKey.currentState!.save();
+                    final newTask = Task(task!);
+                    addTask(newTask);
                   },
                   child: Text('Add Task'),
                 ),
-                entertask(),
+                entertask(addTask),
               ],
             ),
           ),
