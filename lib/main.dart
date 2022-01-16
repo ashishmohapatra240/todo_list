@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/Todo.dart';
+import 'package:todo_app/todo.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -10,10 +10,10 @@ void main() async {
   final appDocumentDirectory =
       await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
-  Hive.registerAdapter(TaskAdapter(), );
+  Hive.registerAdapter(TaskAdapter());
   runApp(const MyApp());
 
-  final taskBox = await Hive.openBox('task');
+  // final taskBox = await Hive.openBox('task');
 }
 
 class MyApp extends StatefulWidget {
@@ -26,19 +26,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    final taskBox = Hive.box('task');
+    // final taskBox = Hive.box('task');
     return MaterialApp(
         title: 'Todo App',
         home: FutureBuilder(
             future: Hive.openBox('task'),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasError)
+                if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
-                else
+                } else {
                   return Todo();
-              } else
+                }
+              } else {
                 return Scaffold();
+              }
             }));
   }
 

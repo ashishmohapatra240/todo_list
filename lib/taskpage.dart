@@ -13,17 +13,20 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   final _formKey = GlobalKey<FormState>();
+  final _taskController = TextEditingController();
 
-  Future<void> addTask(task) async {
-    await Hive.openBox("task");
+  Future<void> addTask(Task task) async {
+    print(task.task);
     final taskBox = Hive.box('task');
     taskBox.add(task);
   }
 
-  String? task;
+  String task = "";
 
   void addValue(String value) {
-    task = value;
+    setState(() {
+      task = value;
+    });
   }
 
   @override
@@ -33,35 +36,33 @@ class _TaskPageState extends State<TaskPage> {
         title: const Text("Add Task"),
       ),
       body: Container(
-        margin: EdgeInsets.all(20.0),
+        margin: const EdgeInsets.all(20.0),
         child: Center(
-          child: Expanded(
-            child: Column(
-              children: [
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: "Enter Task",
-                    // border: InputBorder.none,
-                  ),
-                  onSubmitted: (String value) {
-                    addValue(value);
-                  },
+          child: Column(
+            children: [
+              TextField(
+                controller: _taskController,
+                decoration: const InputDecoration(
+                  hintText: "Enter Task",
+                  // border: InputBorder.none,
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Navigator.of(context).pop({task});
-                    _formKey.currentState!.save();
-                    final newTask = Task(task!);
-                    addTask(newTask);
-                  },
-                  child: Text('Add Task'),
-                ),
-                entertask(addTask),
-              ],
-            ),
+                onSubmitted: (String value) {
+                  addValue(_taskController.text);
+                },
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final newTask = Task(_taskController.text);
+                  addTask(newTask);
+                  Navigator.pop(context);
+                },
+                child: const Text('Add Task'),
+              ),
+              Entertask(addTask),
+            ],
           ),
         ),
       ),

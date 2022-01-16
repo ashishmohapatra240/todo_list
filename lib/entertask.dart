@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hive/hive.dart';
+import 'package:todo_app/models/task.dart';
 
-class entertask extends StatefulWidget {
-  const entertask(void Function(dynamic task) addTask, {Key? key}) : super(key: key);
+class Entertask extends StatefulWidget {
+  const Entertask(void Function(Task task) addTask, {Key? key}) : super(key: key);
 
   @override
-  _entertaskState createState() => _entertaskState();
+  _EntertaskState createState() => _EntertaskState();
 }
 
-class _entertaskState extends State<entertask> {
+class _EntertaskState extends State<Entertask> {
   final _formKey = GlobalKey<FormState>();
   String task='';
 

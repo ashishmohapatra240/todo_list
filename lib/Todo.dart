@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:todo_app/taskpage.dart';
 
 import 'models/task.dart';
@@ -25,6 +26,19 @@ class _TodoState extends State<Todo> {
       todoList.add(task);
     });
     _task.clear();
+  }
+
+  void increase() {
+    if (initial >= 1) {
+      setState(() {
+        initial = 0;
+        value = value + 1;
+      });
+    } else {
+      setState(() {
+        initial = initial + 0.2;
+      });
+    }
   }
 
   Widget _stepIndicator() {
@@ -76,7 +90,7 @@ class _TodoState extends State<Todo> {
                 ),
                 _stepIndicator(),
                 const SizedBox(
-                  height: 40.0,
+                  height: 10.0,
                 ),
               ],
             ),
@@ -109,6 +123,9 @@ class _TodoState extends State<Todo> {
             //         ),
             //       );
             //     })
+            const SizedBox(
+              height: 16,
+            ),  
             Expanded(
               child: _buildListView(),
             ),
@@ -130,15 +147,44 @@ class _TodoState extends State<Todo> {
   }
 }
 
-ListView _buildListView() {
+Widget _buildListView() {
   final taskBox = Hive.box('task');
-  return ListView.builder(
-    itemCount: taskBox.length,
-    itemBuilder: (BuildContext context, int index) {
-      final task =taskBox.get(index) as Task;
-      return ListTile(
-        title: Text(task.task),
-      );
-    },
-  );
+  return WatchBoxBuilder(
+      box: Hive.box('task'),
+      builder: (context, taskBox) {
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: taskBox.length,
+          itemBuilder: (BuildContext context, int index) {
+            final task = taskBox.getAt(index) as Task;
+            // print(taskBox.get(index));
+
+            return ListTile(
+                title: Text(task.task),
+                trailing: SizedBox(
+                  width: 96,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      IconButton(
+                        icon: const Icon(Icons.check),
+                        onPressed: () {
+                          taskBox.putAt(
+                            index,
+                            Task('${task.task}*'),
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          taskBox.deleteAt(index);
+                        },
+                      ),
+                    ],
+                  ),
+                ));
+          },
+        );
+      });
 }
