@@ -60,6 +60,50 @@ class _TodoState extends State<Todo> {
     );
   }
 
+  Widget _buildListView() {
+  final taskBox = Hive.box('task');
+  return WatchBoxBuilder(
+      box: Hive.box('task'),
+      builder: (context, taskBox) {
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: taskBox.length,
+          itemBuilder: (BuildContext context, int index) {
+            final task = taskBox.getAt(index) as Task;
+            // print(taskBox.get(index));
+
+            return ListTile(
+                title: Text(task.task),
+                trailing: SizedBox(
+                  width: 96,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      IconButton(
+                        icon: const Icon(Icons.check),
+                        onPressed: () {
+                          // taskBox.putAt(
+                          //   index,
+                          //   Task('${task.task}*'),
+                          // );
+                          increase();
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          taskBox.deleteAt(index);
+                        },
+                      ),
+                    ],
+                  ),
+                ));
+          },
+        );
+      });
+}
+
+
   @override
   void initState() {
     super.initState();
@@ -147,44 +191,3 @@ class _TodoState extends State<Todo> {
   }
 }
 
-Widget _buildListView() {
-  final taskBox = Hive.box('task');
-  return WatchBoxBuilder(
-      box: Hive.box('task'),
-      builder: (context, taskBox) {
-        return ListView.builder(
-          shrinkWrap: true,
-          itemCount: taskBox.length,
-          itemBuilder: (BuildContext context, int index) {
-            final task = taskBox.getAt(index) as Task;
-            // print(taskBox.get(index));
-
-            return ListTile(
-                title: Text(task.task),
-                trailing: SizedBox(
-                  width: 96,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
-                        icon: const Icon(Icons.check),
-                        onPressed: () {
-                          taskBox.putAt(
-                            index,
-                            Task('${task.task}*'),
-                          );
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          taskBox.deleteAt(index);
-                        },
-                      ),
-                    ],
-                  ),
-                ));
-          },
-        );
-      });
-}
