@@ -1,6 +1,11 @@
-# todo_app
+#To-Do List
 
-A new Flutter project.
+## Overview of the Project
+
+It is a gamified version of the To-Do List. Apart from having the features of a to-do list, the app will give some EXP points to the user whenever they complete a task. Whenever the required number of EXP points are earned by the user, the user will move to the next level. 
+
+## Teah Stack
+
 
 ## Getting Started
 
